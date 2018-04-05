@@ -4,6 +4,7 @@ namespace AvoRed\Related;
 
 use AvoRed\Ecommerce\Events\ProductAfterSave;
 use AvoRed\Related\Http\ViewComposers\RelatedProductComposer;
+use AvoRed\Related\Http\ViewComposers\RelatedProductViewComposer;
 use AvoRed\Related\Listeners\RelatedProductListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
@@ -56,7 +57,7 @@ class Module extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-related');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-related');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        //$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     /**
@@ -66,7 +67,8 @@ class Module extends ServiceProvider
      */
     protected function registerViewComposer()
     {
-        View::composer('avored-related::related.product.tab', RelatedProductComposer::class);
+        View::composer('avored-related::related.admin.product.tab', RelatedProductComposer::class);
+        View::composer('avored-related::related.product.list', RelatedProductViewComposer::class);
     }
 
 
@@ -91,7 +93,7 @@ class Module extends ServiceProvider
 
         $relatedTab->type('product')
             ->label('Related Product')
-            ->view('avored-related::related.product.tab');
+            ->view('avored-related::related.admin.product.tab');
 
         TabFacade::add('related-product', $relatedTab);
     }
