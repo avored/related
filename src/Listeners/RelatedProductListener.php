@@ -34,14 +34,18 @@ class RelatedProductListener
         $productId          = $event->product->id;
         $relatedProducts    = $event->request->get('related');
 
-        $this->related->model()->whereProductId($productId)->delete();
+        if(null != $relatedProducts && count($relatedProducts) > 0) {
 
-        foreach ($relatedProducts as $relatedId => $checkedValue) {
 
-            if($checkedValue == 1) {
-                $this->related->model()->create(['product_id' => $productId, 'related_id' => $relatedId]);
+            $this->related->model()->whereProductId($productId)->delete();
+
+            foreach ($relatedProducts as $relatedId => $checkedValue) {
+
+                if ($checkedValue == 1) {
+                    $this->related->model()->create(['product_id' => $productId, 'related_id' => $relatedId]);
+                }
+
             }
-
         }
 
     }
