@@ -2,7 +2,7 @@
 
 namespace AvoRed\Related;
 
-use AvoRed\Ecommerce\Events\ProductAfterSave;
+use AvoRed\Framework\Events\ProductAfterSave;
 use AvoRed\Related\Http\ViewComposers\RelatedProductComposer;
 use AvoRed\Related\Http\ViewComposers\RelatedProductViewComposer;
 use AvoRed\Related\Listeners\RelatedProductListener;
@@ -28,9 +28,7 @@ class Module extends ServiceProvider
     public function boot()
     {
         $this->registerResources();
-        //$this->registerWidget();
         $this->registerTab();
-        //$this->registerBreadCrumb();
         $this->registerViewComposer();
         $this->registerListener();
     }
@@ -97,45 +95,4 @@ class Module extends ServiceProvider
 
         TabFacade::add('related-product', $relatedTab);
     }
-
-
-
-    /**
-     * Register the Widget.
-     *
-     * @return void
-     */
-    protected function registerWidget()
-    {
-        $bannerProduct = new Widget();
-        WidgetFacade::make($bannerProduct->identifier(), $bannerProduct);
-    }
-
-
-
-    /**
-     * Register the Admin Breadcrumb.
-     *
-     * @return void
-     */
-    protected function registerBreadCrumb()
-    {
-        BreadcrumbFacade::make('admin.banner.index', function ($breadcrumb) {
-                                $breadcrumb->label('Banner')
-                                    ->parent('admin.dashboard');
-                            });
-
-        BreadcrumbFacade::make('admin.banner.create', function ($breadcrumb) {
-                                $breadcrumb->label('Create')
-                                    ->parent('admin.dashboard')
-                                    ->parent('admin.banner.index');
-                            });
-
-        BreadcrumbFacade::make('admin.banner.edit', function ($breadcrumb) {
-            $breadcrumb->label('Edit')
-                ->parent('admin.dashboard')
-                ->parent('admin.banner.index');
-        });
-    }
-
 }

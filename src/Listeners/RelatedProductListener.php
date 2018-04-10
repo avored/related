@@ -1,7 +1,7 @@
 <?php
 namespace AvoRed\Related\Listeners;
 
-use AvoRed\Ecommerce\Events\ProductAfterSave;
+use AvoRed\Framework\Events\ProductAfterSave;
 use AvoRed\Related\Repository\Related;
 
 class RelatedProductListener
@@ -32,9 +32,9 @@ class RelatedProductListener
     public function handle(ProductAfterSave $event)
     {
         $productId          = $event->product->id;
-        $relatedProducts    = $event->request->get('related');
+        $relatedProducts    = isset($event->data['related']) ? $event->data['related'] : [];
 
-        if(null != $relatedProducts && count($relatedProducts) > 0) {
+        if(count($relatedProducts) > 0) {
 
 
             $this->related->model()->whereProductId($productId)->delete();
