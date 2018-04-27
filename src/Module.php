@@ -31,6 +31,7 @@ class Module extends ServiceProvider
         $this->registerTab();
         $this->registerViewComposer();
         $this->registerListener();
+        $this->publishFiles();
     }
 
     /**
@@ -94,5 +95,18 @@ class Module extends ServiceProvider
             ->view('avored-related::related.admin.product.tab');
 
         TabFacade::add('related-product', $relatedTab);
+    }
+
+    /**
+     * Publish files paths for this avo red module.
+     *
+     * @return void
+     */
+    public function publishFiles() {
+
+        $this->publishes([
+            __DIR__ . '/../resources/views' => base_path('themes/avored/default/vendor')
+        ],'avored-module-views');
+
     }
 }
