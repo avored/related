@@ -3,19 +3,10 @@
 namespace AvoRed\Related\DataGrid;
 
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
-use AvoRed\Related\Repository\Related;
+use AvoRed\Related\Models\Database\RelatedProduct as RelatedProductModel;
 
 class RelatedProduct
 {
-
-    /**
-     * Related Product Repository
-     *
-     *
-     * @var \AvoRed\Related\Repository\Related $related
-     */
-    public $related;
-
 
     /**
      * Data Grid Manager Object
@@ -25,17 +16,16 @@ class RelatedProduct
      */
     public $dataGrid;
 
-    public function __construct($model, Related $related, $productId)
+    public function __construct($model,  $productId)
     {
-        $this->related  = $related;
-        $dataGrid       = DataGrid::make('admin_product_related_composer');
 
+        $dataGrid   = DataGrid::make('admin_product_related_composer');
+        $related    = new RelatedProductModel();
 
         $dataGrid->model($model)
             ->linkColumn('checkbox', ['label' => ""],function ($model ) use ($related, $productId){
 
-
-                $relatedModel = $related->model()->whereProductId($productId)->whereRelatedId($model->id)->first();
+                $relatedModel = $related->whereProductId($productId)->whereRelatedId($model->id)->first();
 
                 $checked = "";
                 if(null != $relatedModel) {
