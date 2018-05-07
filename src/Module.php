@@ -9,13 +9,8 @@ use AvoRed\Related\Listeners\RelatedProductListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-
-use AvoRed\Banner\Widget\Banner\Widget;
 use AvoRed\Framework\Tabs\Tab;
-
-use AvoRed\Framework\Widget\Facade as WidgetFacade;
 use AvoRed\Framework\Tabs\Facade as TabFacade;
-use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 
 class Module extends ServiceProvider
 {

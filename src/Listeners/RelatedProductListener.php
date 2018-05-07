@@ -2,26 +2,11 @@
 namespace AvoRed\Related\Listeners;
 
 use AvoRed\Framework\Events\ProductAfterSave;
-use AvoRed\Related\Repository\Related;
+use AvoRed\Related\Models\Database\RelatedProduct;
 
 class RelatedProductListener
 {
 
-    /**
-     * Related Product Repository
-     *
-     * @var \AvoRed\Related\Repository\Related
-     */
-    protected $related;
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct(Related $related)
-    {
-        $this->related = $related;
-    }
 
     /**
      * Handle the event.
@@ -37,12 +22,12 @@ class RelatedProductListener
         if(count($relatedProducts) > 0) {
 
 
-            $this->related->model()->whereProductId($productId)->delete();
+            RelatedProduct::whereProductId($productId)->delete();
 
             foreach ($relatedProducts as $relatedId => $checkedValue) {
 
                 if ($checkedValue == 1) {
-                    $this->related->model()->create(['product_id' => $productId, 'related_id' => $relatedId]);
+                    RelatedProduct::create(['product_id' => $productId, 'related_id' => $relatedId]);
                 }
 
             }

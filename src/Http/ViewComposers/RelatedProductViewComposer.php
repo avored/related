@@ -1,29 +1,10 @@
 <?php
 namespace AvoRed\Related\Http\ViewComposers;
 
-use AvoRed\Related\Repository\Related;
+use AvoRed\Related\DataGrid\RelatedProduct;
 use Illuminate\View\View;
 
 class RelatedProductViewComposer {
-
-
-    /**
-     * The Related repository implementation.
-     *
-     * @var \AvoRed\Related\Repository\Related
-     */
-    protected $related;
-
-    /**
-     * Create a new profile composer.
-     *
-     * @param  \AvoRed\Framework\Repository\Product  $product
-     * @return void
-     */
-    public function __construct(Related $related)
-    {
-        $this->related = $related;
-    }
 
     /**
      * Bind data to the view.
@@ -33,7 +14,9 @@ class RelatedProductViewComposer {
      */
     public function compose(View $view)
     {
-        $view->with('related', $this->related);
+
+        $dataGrid = new RelatedProduct(RelatedProduct::query());
+        $view->with('related', $dataGrid->dataGrid);
     }
 
 }
