@@ -11,7 +11,7 @@ class RelatedProductListener
     /**
      * Handle the event.
      *
-     * @param  \AvoRed\Ecommerce\Events\ProductAfterSave  $event
+     * @param  \AvoRed\Framework\Events\ProductAfterSave  $event
      * @return void
      */
     public function handle(ProductAfterSave $event)
