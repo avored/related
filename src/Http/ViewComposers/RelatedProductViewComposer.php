@@ -1,7 +1,7 @@
 <?php
 namespace AvoRed\Related\Http\ViewComposers;
 
-use AvoRed\Related\DataGrid\RelatedProduct;
+use AvoRed\Related\Models\Database\RelatedProduct as Model;
 use Illuminate\View\View;
 
 class RelatedProductViewComposer {
@@ -15,8 +15,8 @@ class RelatedProductViewComposer {
     public function compose(View $view)
     {
 
-        $dataGrid = new RelatedProduct(RelatedProduct::query());
-        $view->with('related', $dataGrid->dataGrid);
+        $model = new Model();
+        $view->with('related', $model);
     }
 
 }

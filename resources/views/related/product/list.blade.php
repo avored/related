@@ -5,11 +5,9 @@
         </h5>
 
         @php
-            $relatedProducts = $related->model()->getRelatedProducts($product->id);
+            $relatedProducts = $related->getRelatedProducts($product->id);
         @endphp
-
-
-
+        
         <div class="row">
             @foreach($relatedProducts as $relatedProduct)
                 <div class="col-md-4">
